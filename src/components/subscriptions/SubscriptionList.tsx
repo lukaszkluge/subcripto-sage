@@ -121,12 +121,13 @@ export default function SubscriptionList({
               onAdd={handleUpdate}
               initialData={{
                 ...subscriptionToEdit,
-                nextBillingDate: subscriptionToEdit.nextBillingDate instanceof Date 
+                // Convert dates to string format as expected by the form
+                nextBillingDate: typeof subscriptionToEdit.nextBillingDate === 'object' 
                   ? subscriptionToEdit.nextBillingDate.toISOString().split('T')[0] 
-                  : new Date(subscriptionToEdit.nextBillingDate).toISOString().split('T')[0],
-                startDate: subscriptionToEdit.startDate instanceof Date 
-                  ? subscriptionToEdit.startDate.toISOString().split('T')[0] 
-                  : new Date(subscriptionToEdit.startDate).toISOString().split('T')[0],
+                  : String(subscriptionToEdit.nextBillingDate).split('T')[0],
+                startDate: typeof subscriptionToEdit.startDate === 'object'
+                  ? subscriptionToEdit.startDate.toISOString().split('T')[0]
+                  : String(subscriptionToEdit.startDate).split('T')[0],
               }}
             />
           </DialogContent>

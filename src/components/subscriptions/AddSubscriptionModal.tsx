@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -66,7 +65,7 @@ export default function AddSubscriptionModal({
     billingCycle: "monthly",
     category: "entertainment",
     startDate: new Date().toISOString().split("T")[0],
-    nextBillingDate: "",
+    nextBillingDate: new Date().toISOString().split("T")[0],
     notifyDaysBefore: 5,
     ...initialData,
   };
@@ -79,11 +78,9 @@ export default function AddSubscriptionModal({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     try {
-      const success = onAdd(values as SubscriptionFormData);
-      if (success) {
-        form.reset();
-        onClose();
-      }
+      onAdd(values as SubscriptionFormData);
+      form.reset();
+      onClose();
     } catch (error) {
       console.error("Error adding subscription:", error);
     } finally {

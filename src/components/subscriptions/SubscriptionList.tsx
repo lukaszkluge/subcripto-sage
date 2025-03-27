@@ -121,8 +121,8 @@ export default function SubscriptionList({
               onAdd={handleUpdate}
               initialData={{
                 ...subscriptionToEdit,
-                nextBillingDate: subscriptionToEdit.nextBillingDate.toISOString().split('T')[0],
-                startDate: subscriptionToEdit.startDate.toISOString().split('T')[0],
+                nextBillingDate: new Date(subscriptionToEdit.nextBillingDate).toISOString().split('T')[0],
+                startDate: new Date(subscriptionToEdit.startDate).toISOString().split('T')[0],
               }}
             />
           </DialogContent>

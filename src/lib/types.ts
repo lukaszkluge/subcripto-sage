@@ -8,9 +8,9 @@ export type Subscription = {
   billingCycle: 'monthly' | 'yearly' | 'weekly' | 'quarterly';
   category: 'entertainment' | 'fitness' | 'gaming' | 'productivity' | 'music' | 'other';
   nextBillingDate: Date;
-  startDate: Date;
+  startDate: Date | string;
   notifyDaysBefore: number;
-  color?: string; 
+  color?: string;
 };
 
 export type SubscriptionFormData = Omit<Subscription, 'id' | 'nextBillingDate'> & {

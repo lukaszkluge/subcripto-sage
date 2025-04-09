@@ -14,25 +14,25 @@ interface SubscriptionListProps {
   isLoading?: boolean;
 }
 
-export default function SubscriptionList({ 
-  subscriptions, 
-  onDelete, 
-  onUpdate, 
-  isLoading = false 
+export default function SubscriptionList({
+  subscriptions,
+  onDelete,
+  onUpdate,
+  isLoading = false
 }: SubscriptionListProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  
+
   const handleEdit = (id: string) => {
     setEditingId(id);
     setIsEditModalOpen(true);
   };
-  
+
   const handleCloseEditModal = () => {
     setIsEditModalOpen(false);
     setEditingId(null);
   };
-  
+
   const handleUpdate = (data: any) => {
     if (editingId) {
       onUpdate(editingId, data);
@@ -41,12 +41,12 @@ export default function SubscriptionList({
   };
 
   const subscriptionToEdit = editingId ? subscriptions.find(sub => sub.id === editingId) : null;
-  
+
   const yearlyCost = calculateYearlyCost(subscriptions);
   const monthlyCost = yearlyCost / 12;
-  
+
   const groupedSubscriptions = groupSubscriptionsByCategory(subscriptions);
-  
+
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
@@ -56,7 +56,7 @@ export default function SubscriptionList({
       </div>
     );
   }
-  
+
   if (subscriptions.length === 0) {
     return (
       <EmptyState
@@ -90,7 +90,7 @@ export default function SubscriptionList({
           </div>
         </div>
       </div>
-      
+
       {Object.entries(groupedSubscriptions).map(([category, subs]) => (
         <div key={category} className="space-y-4">
           <h3 className="text-md font-medium text-gray-800 capitalize">
@@ -108,22 +108,22 @@ export default function SubscriptionList({
           </div>
         </div>
       ))}
-      
+
       {isEditModalOpen && subscriptionToEdit && (
         <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>Edit Subscription</DialogTitle>
             </DialogHeader>
-            <AddSubscriptionModal 
+            <AddSubscriptionModal
               isOpen={isEditModalOpen}
               onClose={handleCloseEditModal}
               onAdd={handleUpdate}
               initialData={{
                 ...subscriptionToEdit,
                 // Convert dates to string format as expected by the form
-                nextBillingDate: typeof subscriptionToEdit.nextBillingDate === 'object' 
-                  ? subscriptionToEdit.nextBillingDate.toISOString().split('T')[0] 
+                nextBillingDate: typeof subscriptionToEdit.nextBillingDate === 'object'
+                  ? subscriptionToEdit.nextBillingDate.toISOString().split('T')[0]
                   : String(subscriptionToEdit.nextBillingDate).split('T')[0],
                 startDate: typeof subscriptionToEdit.startDate === 'object'
                   ? subscriptionToEdit.startDate.toISOString().split('T')[0]

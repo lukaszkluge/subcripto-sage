@@ -21,7 +21,7 @@ export default function Layout({ children }: LayoutProps) {
       </main>
       <footer className="bg-white/80 dark:bg-gray-700/80 backdrop-blur-md border-t border-slate-200/80 dark:border-slate-600/80 py-6 transition-colors duration-200">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500 dark:text-gray-300">
-          <p>© {currentYear} MySubs. All rights reserved.</p>
+          <p>© {currentYear} MySubs. {t('allRightsReserved')}</p>
         </div>
       </footer>
     </div>

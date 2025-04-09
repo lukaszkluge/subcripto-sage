@@ -37,6 +37,11 @@ const translations = {
     save: "Save",
     saving: "Saving...",
     editSubscription: "Edit Subscription",
+    actions: "Actions",
+    nextPayment: "Next payment",
+    remaining: "Remaining",
+    renewingSoon: "Renewing soon",
+    allRightsReserved: "All rights reserved."
   },
   pl: {
     dashboard: "Panel",
@@ -65,6 +70,11 @@ const translations = {
     save: "Zapisz",
     saving: "Zapisywanie...",
     editSubscription: "Edytuj Subskrypcję",
+    actions: "Akcje",
+    nextPayment: "Następna płatność",
+    remaining: "Pozostało",
+    renewingSoon: "Wkrótce odnowienie",
+    allRightsReserved: "Wszelkie prawa zastrzeżone."
   },
   de: {
     dashboard: "Dashboard",
@@ -93,6 +103,11 @@ const translations = {
     save: "Speichern",
     saving: "Speichern...",
     editSubscription: "Abonnement bearbeiten",
+    actions: "Aktionen",
+    nextPayment: "Nächste Zahlung",
+    remaining: "Verbleibend",
+    renewingSoon: "Wird bald verlängert",
+    allRightsReserved: "Alle Rechte vorbehalten."
   },
   es: {
     dashboard: "Panel",
@@ -121,6 +136,11 @@ const translations = {
     save: "Guardar",
     saving: "Guardando...",
     editSubscription: "Editar Suscripción",
+    actions: "Acciones",
+    nextPayment: "Próximo pago",
+    remaining: "Restante",
+    renewingSoon: "Renovación próxima",
+    allRightsReserved: "Todos los derechos reservados."
   },
 };
 

@@ -15,7 +15,7 @@ export default function Layout({ children }: LayoutProps) {
       </main>
       <footer className="bg-white/80 backdrop-blur-md border-t border-slate-200/80 py-6">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} SubscriptoSage. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} MySubs. All rights reserved.</p>
         </div>
       </footer>
     </div>

@@ -29,10 +29,10 @@ export default function Dashboard() {
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="flex-1">
             <div className="p-6 rounded-2xl bg-white/80 backdrop-blur-sm border border-slate-200/50 shadow-sm">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6">Welcome to SubscriptoSage</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-6">Welcome to MySubs!</h2>
               <div className="space-y-4">
                 <p className="text-gray-600">
-                  Track all your subscriptions in one place. Get reminders before your billing cycles renew.
+                  Track all your subscriptions in one place. Get reminders before your billing cycles renew. Let MySubs gather the details you often forget – so you stay in control, effortlessly.
                 </p>
                 <div className="flex gap-4">
                   <button
@@ -66,9 +66,8 @@ export default function Dashboard() {
                             {subscription.nextBillingDate.toLocaleDateString()}
                           </p>
                         </div>
-                        <span className={`text-sm font-semibold px-2 py-1 rounded-full ${
-                          daysLeft <= 3 ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'
-                        }`}>
+                        <span className={`text-sm font-semibold px-2 py-1 rounded-full ${daysLeft <= 3 ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'
+                          }`}>
                           {daysLeft} {daysLeft === 1 ? 'day' : 'days'}
                         </span>
                       </div>

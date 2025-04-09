@@ -16,7 +16,7 @@ export default function Header() {
         <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
             <span className="font-bold text-xl bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
-              Subcripto<span className="font-light">Sage</span>
+            MySubs
             </span>
           </Link>
         </div>

@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 export type Language = 'en' | 'pl' | 'de' | 'es';
 
@@ -23,6 +23,20 @@ const translations = {
     subscription: "subscription",
     languages: "Languages",
     darkMode: "Dark Mode",
+    welcome: "Welcome to MySubs!",
+    welcomeDescription: "Track all your subscriptions in one place. Get reminders before your billing cycles renew. Let MySubs gather the details you often forget – so you stay in control, effortlessly.",
+    addNewSubscription: "Add New Subscription",
+    upcomingRenewals: "Upcoming Renewals",
+    noUpcomingRenewals: "No upcoming renewals",
+    day: "day",
+    days: "days",
+    edit: "Edit",
+    delete: "Delete",
+    cancel: "Cancel",
+    update: "Update",
+    save: "Save",
+    saving: "Saving...",
+    editSubscription: "Edit Subscription",
   },
   pl: {
     dashboard: "Panel",
@@ -37,6 +51,20 @@ const translations = {
     subscription: "subskrypcję",
     languages: "Języki",
     darkMode: "Tryb Ciemny",
+    welcome: "Witaj w MySubs!",
+    welcomeDescription: "Śledź wszystkie swoje subskrypcje w jednym miejscu. Otrzymuj przypomnienia przed odnowieniem cykli rozliczeniowych. Pozwól MySubs gromadzić szczegóły, o których często zapominasz – abyś pozostał w kontroli, bez wysiłku.",
+    addNewSubscription: "Dodaj Nową Subskrypcję",
+    upcomingRenewals: "Nadchodzące Odnowienia",
+    noUpcomingRenewals: "Brak nadchodzących odnowień",
+    day: "dzień",
+    days: "dni",
+    edit: "Edytuj",
+    delete: "Usuń",
+    cancel: "Anuluj",
+    update: "Aktualizuj",
+    save: "Zapisz",
+    saving: "Zapisywanie...",
+    editSubscription: "Edytuj Subskrypcję",
   },
   de: {
     dashboard: "Dashboard",
@@ -51,6 +79,20 @@ const translations = {
     subscription: "Abonnement",
     languages: "Sprachen",
     darkMode: "Dunkelmodus",
+    welcome: "Willkommen bei MySubs!",
+    welcomeDescription: "Verfolge alle deine Abonnements an einem Ort. Erhalte Erinnerungen bevor deine Abrechnungszyklen erneuert werden. Lass MySubs die Details sammeln, die du oft vergisst – damit du mühelos die Kontrolle behältst.",
+    addNewSubscription: "Neues Abonnement hinzufügen",
+    upcomingRenewals: "Anstehende Verlängerungen",
+    noUpcomingRenewals: "Keine anstehenden Verlängerungen",
+    day: "Tag",
+    days: "Tage",
+    edit: "Bearbeiten",
+    delete: "Löschen",
+    cancel: "Abbrechen",
+    update: "Aktualisieren",
+    save: "Speichern",
+    saving: "Speichern...",
+    editSubscription: "Abonnement bearbeiten",
   },
   es: {
     dashboard: "Panel",
@@ -65,13 +107,36 @@ const translations = {
     subscription: "suscripción",
     languages: "Idiomas",
     darkMode: "Modo Oscuro",
+    welcome: "¡Bienvenido a MySubs!",
+    welcomeDescription: "Rastrea todas tus suscripciones en un solo lugar. Recibe recordatorios antes de que se renueven tus ciclos de facturación. Deja que MySubs recopile los detalles que a menudo olvidas, para que mantengas el control sin esfuerzo.",
+    addNewSubscription: "Añadir Nueva Suscripción",
+    upcomingRenewals: "Próximas Renovaciones",
+    noUpcomingRenewals: "No hay próximas renovaciones",
+    day: "día",
+    days: "días",
+    edit: "Editar",
+    delete: "Eliminar",
+    cancel: "Cancelar",
+    update: "Actualizar",
+    save: "Guardar",
+    saving: "Guardando...",
+    editSubscription: "Editar Suscripción",
   },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>(() => {
+    // Check if language is stored in localStorage
+    const savedLanguage = localStorage.getItem('language');
+    return (savedLanguage as Language) || 'en';
+  });
+
+  useEffect(() => {
+    // Update localStorage when language changes
+    localStorage.setItem('language', language);
+  }, [language]);
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations[typeof language]] || key;

@@ -121,13 +121,17 @@ export default function SubscriptionList({
               onAdd={handleUpdate}
               initialData={{
                 ...subscriptionToEdit,
-                // Fix for the date conversion issue - convert dates to string format expected by the form
+                // Convert dates to strings for the form
                 nextBillingDate: subscriptionToEdit.nextBillingDate instanceof Date 
                   ? subscriptionToEdit.nextBillingDate.toISOString().split('T')[0] 
-                  : String(subscriptionToEdit.nextBillingDate).split('T')[0],
+                  : typeof subscriptionToEdit.nextBillingDate === 'string'
+                    ? subscriptionToEdit.nextBillingDate.split('T')[0]
+                    : new Date().toISOString().split('T')[0],
                 startDate: subscriptionToEdit.startDate instanceof Date
                   ? subscriptionToEdit.startDate.toISOString().split('T')[0]
-                  : String(subscriptionToEdit.startDate).split('T')[0],
+                  : typeof subscriptionToEdit.startDate === 'string'
+                    ? subscriptionToEdit.startDate.split('T')[0]
+                    : new Date().toISOString().split('T')[0],
               }}
             />
           </DialogContent>

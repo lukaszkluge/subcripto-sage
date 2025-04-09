@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface SubscriptionActionButtonsProps {
   onClose: () => void;
@@ -13,6 +14,8 @@ export function SubscriptionActionButtons({
   isLoading,
   isEdit
 }: SubscriptionActionButtonsProps) {
+  const { t } = useLanguage();
+  
   return (
     <div className="flex justify-end space-x-4">
       <Button
@@ -21,7 +24,7 @@ export function SubscriptionActionButtons({
         onClick={onClose}
         disabled={isLoading}
       >
-        Cancel
+        {t('cancel')}
       </Button>
       <Button type="submit" disabled={isLoading}>
         {isLoading ? (
@@ -46,9 +49,9 @@ export function SubscriptionActionButtons({
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
-            Saving...
+            {t('saving')}
           </span>
-        ) : isEdit ? "Update" : "Add Subscription"}
+        ) : isEdit ? t('update') : t('addSubscription')}
       </Button>
     </div>
   );

@@ -14,7 +14,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/80 dark:border-slate-700/80">
+    <header className="w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200/80 dark:border-slate-700/80">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
@@ -37,7 +37,7 @@ export default function Header() {
           <HeaderActions />
           <Link
             to="/add"
-            className="md:hidden bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:shadow-lg transform hover:scale-105 transition-all"
+            className="md:hidden bg-primary text-white rounded-md w-10 h-10 flex items-center justify-center shadow-sm hover:shadow transform hover:translate-y-[-1px] transition-all"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

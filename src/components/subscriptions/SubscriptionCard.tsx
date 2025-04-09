@@ -12,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLanguage } from '@/context/LanguageContext';
 
 interface SubscriptionCardProps {
   subscription: Subscription;
@@ -30,6 +31,7 @@ export default function SubscriptionCard({ subscription, onEdit, onDelete }: Sub
     category,
   } = subscription;
 
+  const { t } = useLanguage();
   const daysRemaining = getDaysRemaining(nextBillingDate);
   const isRenewingSoon = daysRemaining <= subscription.notifyDaysBefore;
 
@@ -48,7 +50,7 @@ export default function SubscriptionCard({ subscription, onEdit, onDelete }: Sub
               </span>
               {isRenewingSoon && (
                 <span className="text-xs py-0.5 px-2 rounded-full bg-yellow-50 text-yellow-700 animate-pulse">
-                  Renewing soon
+                  {t('renewingSoon')}
                 </span>
               )}
             </div>
@@ -78,14 +80,14 @@ export default function SubscriptionCard({ subscription, onEdit, onDelete }: Sub
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="min-w-[140px] z-50 bg-white shadow-lg rounded-lg border border-gray-200">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('actions')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => onEdit(id)}>Edit</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onEdit(id)}>{t('edit')}</DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => onDelete(id)}
                 className="text-red-600 focus:text-red-600"
               >
-                Delete
+                {t('delete')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -93,13 +95,13 @@ export default function SubscriptionCard({ subscription, onEdit, onDelete }: Sub
         
         <div className="mt-4 pt-4 border-t border-gray-100 text-sm">
           <div className="flex justify-between mb-1">
-            <span className="text-gray-500">Next payment:</span>
+            <span className="text-gray-500">{t('nextPayment')}:</span>
             <span className="font-medium text-gray-900">{formatDate(nextBillingDate)}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Remaining:</span>
+            <span className="text-gray-500">{t('remaining')}:</span>
             <span className={`font-medium ${daysRemaining <= 3 ? 'text-red-600' : 'text-gray-900'}`}>
-              {daysRemaining} {daysRemaining === 1 ? 'day' : 'days'}
+              {daysRemaining} {daysRemaining === 1 ? t('day') : t('days')}
             </span>
           </div>
         </div>

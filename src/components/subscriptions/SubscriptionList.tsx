@@ -6,6 +6,7 @@ import EmptyState from '@/components/ui/EmptyState';
 import { calculateYearlyCost, formatCurrency, groupSubscriptionsByCategory } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import AddSubscriptionModal from './AddSubscriptionModal';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface SubscriptionListProps {
   subscriptions: Subscription[];
@@ -22,7 +23,7 @@ export default function SubscriptionList({
 }: SubscriptionListProps) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
+const { t } = useLanguage();
   const handleEdit = (id: string) => {
     setEditingId(id);
     setIsEditModalOpen(true);
@@ -60,10 +61,10 @@ export default function SubscriptionList({
   if (subscriptions.length === 0) {
     return (
       <EmptyState
-        title="No subscriptions yet"
-        description="Add your first subscription to start tracking your expenses."
+        title={t('noSubscriptions')}
+        description={t('addYourFirst')}
         action={{
-          label: "Add Subscription",
+          label: t('addSubscription'),
           to: "/add",
         }}
       />
@@ -74,18 +75,18 @@ export default function SubscriptionList({
     <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 p-5 rounded-xl bg-white/80 backdrop-blur-sm border border-slate-200/50 shadow-sm">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900">Your Subscriptions</h2>
+          <h2 className="text-lg font-semibold text-gray-900">{t('yourSubscriptions')}</h2>
           <p className="text-sm text-gray-500 mt-1">
-            You're tracking {subscriptions.length} {subscriptions.length === 1 ? 'subscription' : 'subscriptions'}
+            {t('tracking')} {subscriptions.length} {subscriptions.length === 1 ? t('subscription') : t('subscriptions')}
           </p>
         </div>
         <div className="mt-4 md:mt-0 flex space-x-6">
           <div className="text-center">
-            <p className="text-sm text-gray-500">Monthly</p>
+            <p className="text-sm text-gray-500">{t('monthly')}</p>
             <p className="text-xl font-bold text-gray-900">{formatCurrency(monthlyCost)}</p>
           </div>
           <div className="text-center">
-            <p className="text-sm text-gray-500">Yearly</p>
+            <p className="text-sm text-gray-500">{t('yearly')}</p>
             <p className="text-xl font-bold text-gray-900">{formatCurrency(yearlyCost)}</p>
           </div>
         </div>
@@ -113,23 +114,27 @@ export default function SubscriptionList({
         <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>Edit Subscription</DialogTitle>
+              <DialogTitle>{t('editSubscription')}</DialogTitle>
             </DialogHeader>
             <AddSubscriptionModal
               isOpen={isEditModalOpen}
               onClose={handleCloseEditModal}
               onAdd={handleUpdate}
-              initialData={{
-                ...subscriptionToEdit,
-                // Convert dates to string format as expected by the form
-                nextBillingDate: typeof subscriptionToEdit.nextBillingDate === 'object'
-                  ? subscriptionToEdit.nextBillingDate.toISOString().split('T')[0]
-                  : String(subscriptionToEdit.nextBillingDate).split('T')[0],
-                startDate: typeof subscriptionToEdit.startDate === 'object'
-                  ? subscriptionToEdit.startDate.toISOString().split('T')[0]
-                  : String(subscriptionToEdit.startDate).split('T')[0],
-              }}
-            />
+  initialData={{
+    ...subscriptionToEdit,
+    // Convert dates to strings for the form
+    nextBillingDate: subscriptionToEdit?.nextBillingDate instanceof Date
+      ? subscriptionToEdit.nextBillingDate.toISOString().split('T')[0]
+      : typeof subscriptionToEdit?.nextBillingDate === 'string'
+      ? (subscriptionToEdit.nextBillingDate as string).split('T')[0]
+      : undefined,
+    startDate: subscriptionToEdit?.startDate instanceof Date
+      ? subscriptionToEdit.startDate.toISOString().split('T')[0]
+      : typeof subscriptionToEdit?.startDate === 'string'
+      ? (subscriptionToEdit.startDate as string).split('T')[0]
+      : undefined,
+  }}
+/>
           </DialogContent>
         </Dialog>
       )}
